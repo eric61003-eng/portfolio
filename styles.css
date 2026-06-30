@@ -14,6 +14,9 @@ button{font:inherit;color:inherit}
 .topbar{height:82px;padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:rgba(8,8,8,.74);backdrop-filter:blur(22px);position:relative;z-index:4}
 .identity{color:inherit;text-decoration:none;display:flex;flex-direction:column;font:600 11.5px/1 var(--display);letter-spacing:.15em}
 .identity small{margin-top:7px;color:var(--muted);font-size:8px;letter-spacing:.18em}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.nav-link{color:inherit;text-decoration:none;font-size:9px;letter-spacing:.16em;opacity:.6;transition:opacity .2s}
+.nav-link:hover{opacity:1}
 .mail{color:inherit;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:10px 15px;background:rgba(255,255,255,.055);font-size:9px;letter-spacing:.16em}
 .profile{position:relative;isolation:isolate;min-height:600px;padding:0 var(--pad) clamp(48px,6vw,80px);display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;border-bottom:1px solid var(--line);overflow:hidden;background:url('assets/hero-bg.png') center/cover no-repeat}
 .profile:before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(to bottom,rgba(0,0,0,.35) 0%,rgba(0,0,0,.55) 60%,rgba(0,0,0,.82) 100%)}
@@ -55,6 +58,21 @@ button{font:inherit;color:inherit}
 .card-label{position:absolute;left:clamp(22px,3vw,42px);right:clamp(22px,3vw,42px);bottom:clamp(24px,3.2vw,46px);display:flex;flex-direction:column;justify-content:flex-end}
 .card-label b{font:300 clamp(18px,2.4vw,34px)/1.1 "Noto Sans TC",var(--body);letter-spacing:.06em;text-shadow:0 4px 28px rgba(0,0,0,.55)}
 .card-label small{margin-top:13px;color:#c4c4c2;font-size:8px;letter-spacing:.2em;font-weight:500;text-shadow:0 2px 14px rgba(0,0,0,.7)}
+.about{padding:clamp(64px,9vw,120px) var(--pad);border-bottom:1px solid var(--line)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(48px,7vw,112px);align-items:start}
+.about-heading{margin:0 0 clamp(28px,3.5vw,48px);font:500 clamp(24px,3.2vw,48px)/1.1 var(--display);letter-spacing:.06em}
+.about-bio{margin:0 0 20px;color:#b8b8b4;font:400 clamp(13px,1.15vw,16px)/1.85 "Noto Sans TC",var(--body);letter-spacing:.02em}
+.about-bio:last-child{margin-bottom:0}
+.about-process-label{margin-bottom:20px;color:var(--muted);font-size:8px;letter-spacing:.24em;font-weight:600}
+.process-list{list-style:none;margin:0 0 clamp(36px,5vw,64px);padding:0}
+.process-list li{display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+.process-list li:first-child{border-top:1px solid var(--line)}
+.process-list li span{color:var(--muted);font-size:8px;letter-spacing:.08em;font-weight:600}
+.process-list li p{margin:0;color:#e4e4e0;font-size:clamp(11px,1vw,13px);letter-spacing:.1em;font-weight:500}
+.about-expertise{display:flex;flex-direction:column;gap:14px}
+.expertise-item{padding:16px 20px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03)}
+.expertise-item b{display:block;margin-bottom:7px;font-size:9px;letter-spacing:.18em;font-weight:700}
+.expertise-item small{color:var(--muted);font-size:9px;letter-spacing:.06em;line-height:1.6}
 footer{margin-top:clamp(56px,7vw,100px);padding:28px var(--pad) 40px;display:flex;justify-content:space-between;border-top:1px solid var(--line);color:var(--muted);font-size:8px;letter-spacing:.2em;font-weight:500}
 .explorer{position:fixed;inset:0;z-index:20;overflow:auto;opacity:0;visibility:hidden;transform:translateY(12px);transition:.25s;background:radial-gradient(ellipse 72% 32% at 50% -4%,rgba(255,255,255,.18),rgba(160,160,160,.05) 38%,transparent 72%),linear-gradient(180deg,#222,var(--bg) 42%,var(--bg-deep))}
 .explorer.is-open{opacity:1;visibility:visible;transform:none}
@@ -95,7 +113,8 @@ footer{margin-top:clamp(56px,7vw,100px);padding:28px var(--pad) 40px;display:fle
 .brand-logo img[src$="whiteout-survival.png"],
 .brand-logo img[src$="hbl.png"],
 .brand-logo img[src$="manhan.png"],
-.brand-logo img[src$="essence.png"]{filter:none}
+.brand-logo img[src$="essence.png"],
+.brand-logo img[src$="oralb.svg"]{filter:none}
 .ai-brand-grid .brand-logo img{padding:11px 14px;filter:brightness(0) invert(1)}
 .brand-copy small{margin-top:9px;color:#e6e6e3;font:500 12px/1.35 "Noto Sans TC",var(--body);letter-spacing:.02em}
 .brand-copy em{margin-top:5px;color:#8f8f8c;font-size:8px;font-style:normal;font-weight:600;letter-spacing:.13em;line-height:1.45}
@@ -111,6 +130,7 @@ article[data-current-brand="frostpunk"] .collection-logo img,
 article[data-current-brand="hbl"] .collection-logo img,
 article[data-current-brand="uni-president"] .collection-logo img,
 article[data-current-brand="essence"] .collection-logo img{filter:none}
+.collection-logo img[src$="oralb.svg"]{filter:none}
 .collection-wordmark{display:grid;place-items:center;color:#f3f3f0;font:600 clamp(34px,5vw,66px)/1 "Noto Sans TC",var(--body);letter-spacing:.04em}
 .case-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .case-card{position:relative;isolation:isolate;overflow:hidden;aspect-ratio:16/9;padding:0;border:1px solid var(--line);border-radius:var(--radius);background:#141414;cursor:pointer;text-align:left;transition:.38s}
@@ -165,6 +185,6 @@ article[data-current-brand="essence"] .collection-logo img{filter:none}
 .lightbox.is-open{visibility:visible;opacity:1}
 .lightbox img{max-width:96vw;max-height:92vh;object-fit:contain}
 .lightbox button{position:absolute;right:22px;top:20px;width:44px;height:44px;border:1px solid #777;border-radius:50%;background:#111;color:#fff;font-size:22px;cursor:pointer}
-@media(max-width:900px){.profile{grid-template-columns:1fr;min-height:560px}.brand-grid,.case-grid{grid-template-columns:1fr}.collection-logo{height:auto}.detail-header{min-height:340px}.ai-detail-header{min-height:0;grid-template-columns:180px 1fr}.view-title{grid-template-columns:1fr}.view-title>span{text-align:left}}
+@media(max-width:900px){.profile{grid-template-columns:1fr;min-height:560px}.brand-grid,.case-grid{grid-template-columns:1fr}.collection-logo{height:auto}.detail-header{min-height:340px}.ai-detail-header{min-height:0;grid-template-columns:180px 1fr}.view-title{grid-template-columns:1fr}.view-title>span{text-align:left}.about-grid{grid-template-columns:1fr;gap:48px}}
 @media(max-width:620px){.topbar{height:72px}.mail{display:none}.profile{padding-top:58px}.profile h1{font-size:68px}.category-grid{grid-template-columns:1fr}.category-card{min-height:0;aspect-ratio:16/9}.status-tabs{gap:10px;margin:4px auto 32px}.status-tab{min-width:138px;padding:13px 18px;font-size:12px;letter-spacing:.12em}.brand-card{min-height:0}.brand-panel{min-height:78px;grid-template-columns:104px minmax(0,1fr);gap:12px;padding:12px 2px 0}.brand-panel.no-logo{grid-template-columns:1fr}.brand-logo{width:104px;height:54px}.brand-copy b{font-size:18px}.brand-copy small{font-size:10px}.collection-header{padding:0}.case-card{aspect-ratio:16/9}.case-meta{min-height:120px;padding:46px 18px 18px}.case-year{right:10px;top:10px}.detail-header{min-height:310px;padding:26px;margin-bottom:65px}.ai-detail-header{min-height:0;padding:0 0 30px;grid-template-columns:1fr;gap:18px}.ai-detail-logo{width:210px;height:82px}.ai-detail-copy h2{font-size:36px}.detail-header h2{font-size:43px}.project-intro{padding-left:4px;padding-right:4px}.project-intro p{margin-top:16px}.gallery-section{margin-top:66px}.image-grid,.project-video-grid{grid-template-columns:1fr}.image-button:first-child{grid-column:auto}.skills{position:fixed;left:14px;right:14px;bottom:80px;width:auto;grid-template-columns:1fr 1fr}.skill-group{padding:9px}.skills span{flex-basis:110px;padding:7px 8px}.explorer-content{padding-left:18px;padding-right:18px}footer{display:none}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.skills{animation:none}body:before{display:none}}
