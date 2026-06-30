@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Eric Chen — Spatial Designer & Art Director">
+  <title>ERIC CHEN — PORTFOLIO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+<style id="gv-style">
+#gv-overlay{position:fixed;inset:0;z-index:2147483647;display:none;background:radial-gradient(ellipse at 50% 42%,rgba(255,255,255,.07),transparent 55%),rgba(0,0,0,.93);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+#gv-overlay.gv-open{display:flex;align-items:center;justify-content:center}
+#gv-stage{width:min(96vw,1640px);height:min(84vh,920px);display:grid;grid-template-columns:1fr 3.8fr 1fr;align-items:center;gap:clamp(14px,2vw,30px)}
+.gv-side{display:flex;align-items:center;justify-content:center;cursor:pointer;min-width:0}
+.gv-side-inner{width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0d0d0d;opacity:.22;filter:saturate(.5) brightness(.55);transform:scale(.86);transition:opacity .26s ease,transform .26s ease,filter .26s ease;border:1px solid rgba(255,255,255,.09)}
+.gv-side:hover .gv-side-inner{opacity:.58;transform:scale(.94);filter:saturate(.85) brightness(.82)}
+.gv-side-inner img,.gv-side-inner video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.gv-main{position:relative;min-width:0;height:100%;overflow:hidden}
+.gv-main-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;will-change:transform,opacity}
+.gv-main-inner img{max-width:100%;max-height:min(80vh,860px);width:auto;height:auto;object-fit:contain;border-radius:20px;box-shadow:0 32px 110px rgba(0,0,0,.65);background:#080808;display:block}
+.gv-video-mask{width:100%;max-width:min(100%,1240px);aspect-ratio:16/9;overflow:hidden;border-radius:20px;box-shadow:0 32px 110px rgba(0,0,0,.65);background:#000}
+.gv-video-mask video{width:120%;height:120%;transform:translate(-5%,-5%);object-fit:cover;display:block}
+@keyframes gvInRight{from{transform:translateX(100%)}to{transform:translateX(0)}}
+@keyframes gvInLeft{from{transform:translateX(-100%)}to{transform:translateX(0)}}
+@keyframes gvOutLeft{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+@keyframes gvOutRight{from{transform:translateX(0)}to{transform:translateX(100%)}}
+.gv-enter-right{animation:gvInRight .38s cubic-bezier(.32,.82,.32,1) forwards}
+.gv-enter-left{animation:gvInLeft .38s cubic-bezier(.32,.82,.32,1) forwards}
+.gv-exit-left{animation:gvOutLeft .38s cubic-bezier(.32,.82,.32,1) forwards}
+.gv-exit-right{animation:gvOutRight .38s cubic-bezier(.32,.82,.32,1) forwards}
+#gv-close{position:fixed;top:24px;right:26px;z-index:2;width:52px;height:52px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;font-size:28px;cursor:pointer;display:grid;place-items:center;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:background .2s}
+#gv-close:hover{background:rgba(255,255,255,.18)}
+#gv-count{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);padding:8px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:rgba(255,255,255,.72);font:700 12px/1 system-ui,sans-serif;letter-spacing:.18em;pointer-events:none}
+@media(max-width:900px){#gv-stage{grid-template-columns:1fr}.gv-side{display:none}}
+</style>
+<script id="gv-script">
+(function(){
+  if(window.__gvLoaded)return;window.__gvLoaded=true;
+  var items=[],idx=0,busy=false;
+  var ov=document.createElement('div');ov.id='gv-overlay';
+  ov.innerHTML='<button id="gv-close" type="button">×</button><div id="gv-stage"><div class="gv-side" id="gvPrev"><div class="gv-side-inner" id="gvPI"></div></div><div class="gv-main" id="gvMain"></div><div class="gv-side" id="gvNext"><div class="gv-side-inner" id="gvNI"></div></div></div><div id="gv-count"></div>';
+  document.body.appendChild(ov);
+  var main=ov.querySelector('#gvMain'),pi=ov.querySelector('#gvPI'),ni=ov.querySelector('#gvNI'),cnt=ov.querySelector('#gv-count');
+  function src(el){return el?(el.currentSrc||el.src||el.getAttribute('src')||''):''}
+  function sideMedia(item){
+    if(item.type==='video'){var v=document.createElement('video');v.src=item.src;v.muted=true;v.loop=true;v.playsInline=true;v.autoplay=true;v.preload='metadata';return v}
+    var i=document.createElement('img');i.src=item.src;i.alt=item.alt||'';return i
+  }
+  function mainMedia(item){
+    if(item.type==='video'){var m=document.createElement('div');m.className='gv-video-mask';var v=document.createElement('video');v.src=item.src;v.muted=true;v.loop=true;v.playsInline=true;v.autoplay=true;v.controls=true;m.appendChild(v);setTimeout(function(){v.play().catch(function(){})},40);return m}
+    var i=document.createElement('img');i.src=item.src;i.alt=item.alt||'';return i
+  }
+  function sides(){
+    pi.innerHTML='';ni.innerHTML='';
+    if(items.length>1){pi.appendChild(sideMedia(items[(idx-1+items.length)%items.length]));ni.appendChild(sideMedia(items[(idx+1)%items.length]))}
+  }
+  function renderMain(dir){
+    var wrap=document.createElement('div');wrap.className='gv-main-inner';wrap.appendChild(mainMedia(items[idx]));
+    if(!dir||!main.children.length){main.innerHTML='';main.appendChild(wrap);busy=false}
+    else{
+      var exitClass=dir==='next'?'gv-exit-left':'gv-exit-right';
+      var enterClass=dir==='next'?'gv-enter-right':'gv-enter-left';
+      // Clear ALL accumulated old elements to prevent multi-click bug
+      Array.from(main.querySelectorAll('.gv-main-inner')).forEach(function(old){
+        old.classList.remove('gv-enter-right','gv-enter-left');
+        old.classList.add(exitClass);
+        old.addEventListener('animationend',function(){old.remove()},{once:true})
+      });
+      wrap.classList.add(enterClass);
+      main.appendChild(wrap);
+      wrap.addEventListener('animationend',function(){wrap.classList.remove(enterClass);busy=false},{once:true})
+    }
+    cnt.textContent=String(idx+1).padStart(2,'0')+' / '+String(items.length).padStart(2,'0');
+    sides()
+  }
+  function step(d){if(busy||items.length<=1)return;busy=true;setTimeout(function(){busy=false},700);idx=(idx+d+items.length)%items.length;renderMain(d>0?'next':'prev')}
+  function open(list,start){items=list;idx=start;busy=false;ov.classList.add('gv-open');document.documentElement.style.overflow='hidden';renderMain(null)}
+  function close(){ov.classList.remove('gv-open');document.documentElement.style.overflow='';main.innerHTML='';pi.innerHTML='';ni.innerHTML='';ov.querySelectorAll('video').forEach(function(v){v.pause()});busy=false}
+  document.addEventListener('keydown',function(e){if(!ov.classList.contains('gv-open'))return;if(e.key==='Escape')close();if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1)});
+  function collectSection(el){
+    var scope=el.closest('.gallery-section')||el.closest('article')||document.body;
+    var seen=new Set();
+    return Array.from(scope.querySelectorAll('.image-button img,.project-video-wrap video')).filter(function(m){
+      var s=src(m);if(!s||seen.has(s))return false;seen.add(s);
+      var r=m.getBoundingClientRect();return r.width>50&&r.height>30
+    }).map(function(m){return{type:m.tagName==='VIDEO'?'video':'image',src:src(m),alt:m.getAttribute('alt')||''}})
+  }
+  document.addEventListener('click',function(e){
+    var t=e.target;
+    // Handle all overlay interactions here (blocks v6 + other listeners from interfering)
+    if(t&&t.closest('#gv-overlay')){
+      e.stopImmediatePropagation();
+      if(t.closest('#gvPrev')){step(-1);return}
+      if(t.closest('#gvNext')){step(1);return}
+      if(t.closest('#gv-close')||t===ov){close();return}
+      return
+    }
+    // Project image / video clicks
+    if(!t||t.closest('.brand-card,.case-card,.category-card'))return;
+    var btn=t.closest('.image-button'),vw=t.closest('.project-video-wrap');
+    if(!btn&&!vw)return;
+    var m=btn?btn.querySelector('img'):vw.querySelector('video');
+    if(!m)return;
+    var list=collectSection(m);if(!list.length)return;
+    var s=src(m),si=list.findIndex(function(x){return x.src===s});
+    e.preventDefault();e.stopImmediatePropagation();
+    open(list,si<0?0:si)
+  },true)
+})();
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="identity" href="#"><span>ERIC CHEN</span><small>SPATIAL DESIGNER / ART DIRECTOR</small></a>
+    <a class="mail" href="mailto:eric61003@me.com">CONTACT</a>
+  </header>
+  <main>
+    <section class="profile" aria-labelledby="profile-title">
+      <p class="eyebrow">SPATIAL / EVENT / VISUAL / AI</p>
+      <h1 id="profile-title">ERIC<br><em>CHEN</em></h1>
+      <div class="profile-role">SPATIAL DESIGNER<br>ART DIRECTOR</div>
+      <div class="skills-wrap">
+        <button class="skills-trigger" id="skillsTrigger" type="button" aria-expanded="false" aria-controls="skillsPanel">SKILLS <span>08</span></button>
+        <div class="skills" id="skillsPanel" aria-label="Skills" hidden>
+          <section class="skill-group"><b>3D</b><div><span><img src="assets/tools/3dsmax.svg" alt="">3ds Max</span><span><img src="assets/tools/vray.svg" alt="">V-Ray</span><span><img src="assets/tools/blender.svg" alt="">Blender</span><span><img src="assets/tools/autocad.svg" alt="">AutoCAD</span></div></section>
+          <section class="skill-group"><b>2D</b><div><span><img src="assets/tools/photoshop.svg" alt="">Photoshop</span><span><img src="assets/tools/illustrator.svg" alt="">Illustrator</span></div></section>
+          <section class="skill-group"><b>VIDEO</b><div><span><img src="assets/tools/premiere.svg" alt="">Premiere Pro</span></div></section>
+          <section class="skill-group"><b>AI</b><div><span><img src="assets/tools/comfyui.svg" alt="">ComfyUI</span></div></section>
+        </div>
+      </div>
+    </section>
+    <section class="category-grid" aria-label="Portfolio categories">
+      <button class="category-card category-card-video" data-open-category="ai" style="--image:url('assets/projects/itg-ai/live/2.jpg')">
+        <span class="category-video-reel" id="aiReel" aria-hidden="true">
+          <video class="is-active" muted playsinline preload="metadata" src="assets/projects/itg-ai/video/0204-bilingual.mp4"></video>
+          <video muted playsinline preload="metadata" src="assets/projects/havas-ai/video/main.mp4"></video>
+          <video muted playsinline preload="metadata" src="assets/projects/personal-study/video/cat-study.mp4"></video>
+          <video muted playsinline preload="metadata" src="assets/videos/ai-reel/mediatek.mp4"></video>
+        </span>
+        <span class="card-index">01</span><span class="card-label"><b>AI 生成視覺</b><small>GENERATIVE CREATIVE · 05 SEC LOOP</small></span>
+      </button>
+      <button class="category-card" data-open-category="activity" style="--image:url('assets/projects/bvlgari-gala/cover/1.jpg')"><span class="category-cover-reel cover-reel" aria-hidden="true"><img class="is-active" src="assets/projects/bvlgari-gala/cover/1.jpg" alt=""><img src="assets/projects/dior-rose/cover/1.jpg" alt=""><img src="assets/projects/lv-exotic/cover/1.jpg" alt=""><img src="assets/projects/gucci-ancora/cover/1.jpg" alt=""><img src="assets/projects/frostpunk-dadaocheng/live/1.jpg" alt=""><img src="assets/projects/hbl-30/cover/1.jpg" alt=""><img src="assets/projects/uni-president/cover/1.jpg" alt=""></span><span class="card-index">02</span><span class="card-label"><b>品牌活動</b><small>EVENT &amp; ACTIVATION</small></span></button>
+      <button class="category-card" data-open-category="exhibition" style="--image:url('assets/projects/infiniti/cover/1.jpg')"><span class="category-cover-reel cover-reel" aria-hidden="true"><img class="is-active" src="assets/projects/infiniti/cover/1.jpg" alt=""><img src="assets/projects/maserati/cover/1.jpg" alt=""><img src="assets/projects/wine-expo/cover/1.jpg" alt=""><img src="assets/projects/archive-shilei/live/1.jpg" alt=""><img src="assets/projects/archive-dental-2017/live/1.jpg" alt=""></span><span class="card-index">03</span><span class="card-label"><b>展覽空間</b><small>SPATIAL EXPERIENCE</small></span></button>
+      <button class="category-card" data-open-category="graphic" style="--image:url('assets/projects/graphic-starlux-kv/render/1.jpg')"><span class="category-cover-reel cover-reel" aria-hidden="true"><img class="is-active" src="assets/projects/graphic-starlux-kv/render/1.jpg" alt=""><img src="assets/projects/graphic-starlux-kv/render/2.jpg" alt=""><img src="assets/projects/graphic-starlux-kv/render/3.jpg" alt=""><img src="assets/projects/graphic-starlux-kv/render/4.jpg" alt=""></span><span class="card-index">04</span><span class="card-label"><b>平面視覺</b><small>KEY VISUAL &amp; CAMPAIGN</small></span></button>
+    </section>
+  </main>
+  <footer><span>SELECTED WORKS</span><span>© ERIC CHEN</span></footer>
+  <div class="explorer" id="explorer" aria-hidden="true">
+    <div class="explorer-bar"><button id="backButton" class="round-button" type="button" aria-label="Back">←</button><nav id="breadcrumb" aria-label="Breadcrumb"></nav><button id="closeButton" class="round-button" type="button" aria-label="Close">×</button></div>
+    <div id="explorerContent" class="explorer-content"></div>
+  </div>
+  <div class="lightbox" id="lightbox" aria-hidden="true"><button type="button" aria-label="Close image">×</button><img alt="Project image"></div>
+  <script src="script.js"></script>
+  <script src="./oralb-graphic-2017.patch.js"></script>
+</body>
+</html>

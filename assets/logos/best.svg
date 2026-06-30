@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 240" role="img" aria-labelledby="title">
+  <title id="title">BEST</title>
+  <rect width="760" height="240" fill="none"/>
+  <text x="380" y="165"
+        text-anchor="middle"
+        fill="#35b7d3"
+        font-family="Arial Rounded MT Bold, Arial, Helvetica, sans-serif"
+        font-size="176"
+        font-weight="900"
+        letter-spacing="-18">best</text>
+</svg>

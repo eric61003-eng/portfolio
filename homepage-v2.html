@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERIC CHEN — PORTFOLIO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── AI HERO ── */
+    .ai-hero {
+      position: relative;
+      height: calc(100vh - 56px);
+      min-height: 520px;
+      overflow: hidden;
+      background: #000;
+    }
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      z-index: 0;
+    }
+    .hero-video.is-active {
+      opacity: 1;
+      z-index: 1;
+    }
+    .ai-hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: linear-gradient(
+        180deg,
+        rgba(0,0,0,.18) 0%,
+        transparent 28%,
+        transparent 55%,
+        rgba(0,0,0,.72) 100%
+      );
+      pointer-events: none;
+    }
+    .ai-hero-caption {
+      position: absolute;
+      bottom: 36px;
+      left: 0;
+      right: 0;
+      z-index: 3;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0 clamp(24px, 4vw, 60px);
+    }
+    .hero-label {
+      display: block;
+      font: 600 9px/1 var(--body, 'DM Sans', sans-serif);
+      letter-spacing: .2em;
+      color: rgba(255,255,255,.45);
+      margin-bottom: 10px;
+    }
+    .hero-project-name {
+      font: 500 13px/1 var(--body, 'DM Sans', sans-serif);
+      letter-spacing: .1em;
+      color: rgba(255,255,255,.82);
+      margin: 0;
+      transition: opacity .4s;
+    }
+    .hero-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding-bottom: 2px;
+    }
+    .hero-dot {
+      width: 20px;
+      height: 2px;
+      border-radius: 2px;
+      background: rgba(255,255,255,.28);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background .35s, width .35s;
+    }
+    .hero-dot.is-active {
+      background: rgba(255,255,255,.88);
+      width: 36px;
+    }
+
+    /* ── DIVIDER between hero and category grid ── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(32px, 4vw, 52px) clamp(24px, 4vw, 60px);
+      gap: 20px;
+    }
+    .section-divider span {
+      font: 600 9px/1 var(--body, 'DM Sans', sans-serif);
+      letter-spacing: .22em;
+      color: rgba(255,255,255,.28);
+      white-space: nowrap;
+    }
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,.1);
+    }
+
+    /* ── category grid spacing tweak ── */
+    main > .category-grid {
+      padding-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="identity" href="#" aria-label="回首頁"><span>ERIC CHEN</span><small>CREATIVE PORTFOLIO</small></a>
+    <button class="menu-button" type="button" data-open-category="activity">SELECTED WORK <span>↗</span></button>
+  </header>
+
+  <main>
+    <!-- AI HERO -->
+    <section class="ai-hero">
+      <video class="hero-video is-active" src="assets/projects/mediatek-ai/video/1216.mp4" muted playsinline preload="auto"></video>
+      <video class="hero-video" src="assets/projects/havas-ai/video/main.mp4" muted playsinline preload="metadata"></video>
+      <video class="hero-video" src="assets/projects/itg-ai/video/0204-bilingual.mp4" muted playsinline preload="metadata"></video>
+      <video class="hero-video" src="assets/projects/gsk-ai/video/interactive.mp4" muted playsinline preload="metadata"></video>
+
+      <div class="ai-hero-overlay"></div>
+
+      <div class="ai-hero-caption">
+        <div>
+          <span class="hero-label">AI GENERATIVE CREATIVE</span>
+          <p class="hero-project-name" id="heroProjectName">MEDIATEK AI MOTION VISUALS</p>
+        </div>
+        <div class="hero-dots" id="heroDots">
+          <button class="hero-dot is-active" data-idx="0" aria-label="MediaTek"></button>
+          <button class="hero-dot" data-idx="1" aria-label="Havas"></button>
+          <button class="hero-dot" data-idx="2" aria-label="Imperial Tobacco"></button>
+          <button class="hero-dot" data-idx="3" aria-label="GSK"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION DIVIDER -->
+    <div class="section-divider"><span>PORTFOLIO</span></div>
+
+    <!-- CATEGORY GRID -->
+    <section class="category-grid" aria-label="作品分類">
+      <button class="category-card" data-open-category="exhibition" style="--image:url('assets/oralb-live.jpg')">
+        <span class="card-index">01</span>
+        <span class="card-label"><b>展覽</b><small>EXHIBITION</small></span>
+        <span class="arrow">↗</span>
+      </button>
+      <button class="category-card" data-open-category="activity" style="--image:url('assets/dior-lucky-charm.jpg')">
+        <span class="card-index">02</span>
+        <span class="card-label"><b>活動</b><small>EVENT &amp; ACTIVATION</small></span>
+        <span class="arrow">↗</span>
+      </button>
+      <button class="category-card" data-open-category="graphic" style="--image:url('assets/starlux-visual.jpg')">
+        <span class="card-index">03</span>
+        <span class="card-label"><b>平面</b><small>GRAPHIC &amp; KEY VISUAL</small></span>
+        <span class="arrow">↗</span>
+      </button>
+      <button class="category-card category-video" data-open-category="ai">
+        <video autoplay muted loop playsinline poster="assets/itg-kv.png">
+          <source src="assets/ai-year-end-loop.mp4" type="video/mp4">
+        </video>
+        <span class="card-index">04</span>
+        <span class="card-label"><b>AI</b><small>GENERATIVE CREATIVE</small></span>
+        <span class="arrow">↗</span>
+      </button>
+    </section>
+  </main>
+
+  <footer><span>TAIPEI, TAIWAN</span><span>SELECT A CATEGORY TO EXPLORE</span></footer>
+
+  <div class="explorer" id="explorer" aria-hidden="true">
+    <div class="explorer-bar">
+      <button id="backButton" class="round-button" type="button" aria-label="上一層">←</button>
+      <nav id="breadcrumb" aria-label="麵包屑導覽"></nav>
+      <button id="closeButton" class="round-button" type="button" aria-label="關閉">×</button>
+    </div>
+    <div id="explorerContent" class="explorer-content"></div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" aria-hidden="true" aria-label="圖片燈箱" role="dialog">
+    <button type="button" aria-label="關閉">×</button>
+    <img src="" alt="">
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // ── Hero reel ──
+    const heroVideos   = [...document.querySelectorAll('.hero-video')];
+    const heroDotsEls  = [...document.querySelectorAll('.hero-dot')];
+    const heroNameEl   = document.getElementById('heroProjectName');
+    const projectNames = [
+      'MEDIATEK AI MOTION VISUALS',
+      'HAVAS YEAR-END AI FILM',
+      'IMPERIAL TOBACCO — AI ENGAGEMENT',
+      'GSK TJCC LAUNCH MOTION VISUALS'
+    ];
+
+    let heroActive = 0;
+    let heroTimer  = null;
+
+    function showHero(idx) {
+      heroVideos[heroActive].classList.remove('is-active');
+      heroDotsEls[heroActive].classList.remove('is-active');
+      heroActive = (idx + heroVideos.length) % heroVideos.length;
+      const v = heroVideos[heroActive];
+      v.currentTime = 0;
+      v.play().catch(() => {});
+      v.classList.add('is-active');
+      heroDotsEls[heroActive].classList.add('is-active');
+      heroNameEl.textContent = projectNames[heroActive];
+    }
+
+    function startReel() {
+      heroTimer = setInterval(() => showHero(heroActive + 1), 7000);
+    }
+
+    heroVideos[0].play().catch(() => {});
+    startReel();
+
+    heroDotsEls.forEach(dot => {
+      dot.addEventListener('click', () => {
+        clearInterval(heroTimer);
+        showHero(parseInt(dot.dataset.idx));
+        startReel();
+      });
+    });
+
+    // Pause reel when explorer is open (don't need performance hit)
+    document.querySelector('#closeButton').addEventListener('click', () => {
+      clearInterval(heroTimer);
+      startReel();
+    });
+  </script>
+</body>
+</html>

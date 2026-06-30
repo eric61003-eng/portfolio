@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 240" role="img" aria-label="KYMCO">
+  <rect width="900" height="240" fill="none"/>
+  <ellipse cx="150" cy="120" rx="105" ry="66" fill="none" stroke="#d71920" stroke-width="22"/>
+  <path d="M88 120h124M150 64v112" stroke="#d71920" stroke-width="20" stroke-linecap="round"/>
+  <text x="560" y="164" text-anchor="middle" fill="#d71920" font-family="Arial, Helvetica, sans-serif" font-size="138" font-weight="800" letter-spacing="-4">KYMCO</text>
+</svg>
